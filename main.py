@@ -5,6 +5,7 @@ import os
 import pickle
 import sys
 from copy import deepcopy
+from uuid import uuid4, UUID
 
 
 class Days:
@@ -47,6 +48,7 @@ class Task:
         self.hour_start = hour_start
         self.fifteens_into_hour = fifteens_into_hour
         self.duration_in_fifteens = duration_in_fifteens
+        self.__unique_id: UUID = uuid4()
 
     @staticmethod
     def add_zero(num: int) -> str:
@@ -69,7 +71,7 @@ class Task:
         return True
 
     def __hash__(self) -> int:
-        return hash(self.name + self.description + str(self.hour_start) + str(self.fifteens_into_hour) + str(self.duration_in_fifteens))
+        return hash(self.__unique_id)
 
 
 timeline_length: int = 96  # Number of 15 minute segments in a day
@@ -208,9 +210,10 @@ def add_event() -> None:
     new_task: Task = Task(
         name, description, hour_start, fifteens_into_hour, duration_in_fifteens=hour_duration * 4 + fifteens_duration
     )
-    schedules[current_schedule].add(new_task)
-    add_to_timeline(new_task)
-    print(f"{new_task.name} was added")
+
+    if add_to_timeline(new_task):
+        schedules[current_schedule].add(new_task)
+        print(f"{new_task.name} was added")
 
 
 def remove_event() -> None:
