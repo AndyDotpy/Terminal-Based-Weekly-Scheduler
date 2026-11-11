@@ -453,6 +453,7 @@ def main() -> None:
                          f"Would you like use the {Days.get_str(current_day.weekday())} schedule? \"y\" or \"n\": ").lower() == "y":
                     current_schedule = current_day.weekday()
                     schedules[Days.TODAY].clear()
+                    schedules[Days.TODAY].update(deepcopy(schedules[current_schedule]))
 
     except FileNotFoundError:
         pass
