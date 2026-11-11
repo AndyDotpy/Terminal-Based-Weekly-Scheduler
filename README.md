@@ -16,5 +16,5 @@ to best understand the scheduler.
 ## Installation
 
 1. Clone repository: git clone https://github.com/AndyDotpy/Terminal-Based-Weekly-Scheduler.git
-2. Install pyinstaller: pip install pyinstaller
+2. Install requirements: pip install -r requirements.txt
 3. Create the executable: pyinstaller --onefile --name "Weekly Scheduler" --icon=Modern-Weekly-Calendar-Icon.ico main.py
